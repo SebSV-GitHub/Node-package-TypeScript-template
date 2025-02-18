@@ -1,125 +1,196 @@
-# TypeScript Template Repository 🚀
+# Node Package TypeScript Template
 
-A ready-to-use TypeScript project template with modern tooling to streamline your development workflow. Use this template on GitHub to kickstart a new project with ease.
+This repository is a boilerplate for creating and publishing Node.js packages written in TypeScript. It is pre-configured with [XO](https://github.com/xojs/xo) for linting, [Jest](https://jestjs.io/) for testing, [Prettier](https://prettier.io/) for formatting, and [Husky](https://typicode.github.io/husky/) for git hooks.
 
-## 🌟 Features
+## Table of Contents
 
-- **TypeScript** with TSX, a fast `Node.js + TypeScript` runtime.
-- **ECMAScript Modules (ESM)** for modern module usage.
-- **XO** for strict linting and maintaining code quality.
-- **Prettier** for automatic code formatting.
-- **Jest** for unit and integration testing.
-- **TypeScript Path Aliases** for easier imports and cleaner code structure.
-- **Git Hooks** managed by **Husky** and **lint-staged** for seamless pre-commit and pre-push checks.
-- **EditorConfig** to keep editor settings consistent across various IDEs.
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Directory Structure](#directory-structure)
+  - [Configuration](#configuration)
+- [Scripts](#scripts)
+  - [Development](#development)
+  - [Build](#build)
+  - [Test](#test)
+  - [Lint](#lint)
+  - [Publish](#publish)
+- [Configuration](#configuration)
+  - [TypeScript](#typescript)
+  - [ESLint and Prettier](#eslint-and-prettier)
+  - [Husky](#husky)
+- [Contributing](#contributing)
+- [License](#license)
 
-## 🚀 Getting Started
+---
 
-### Prerequisites
+## Features
 
-- **Node.js** (v18+) – required by the `tsx` runtime.
-- **npm** (package manager)
+- **TypeScript**: Write strongly typed JavaScript code for fewer bugs and better maintainability.
+- **XO**: Opinionated and zero-configuration linting on top of ESLint.
+- **Prettier**: Automatic code formatting for a clean, standardized look.
+- **Jest**: Unit testing framework for reliable code.
+- **Husky**: Pre-commit hooks to enforce linting and tests before code is committed.
+- **Pre-configured Scripts**: Common commands (test, build, publish, etc.) are ready to go.
+
+---
+
+## Getting Started
 
 ### Installation
 
-1. **Use as a Template**: Select this template on GitHub when creating a new repository.
-2. Clone your new repository:
+1. **Use this template**: Click the green **Use this template** button on the repository page (if available).  
+   Alternatively, you can manually clone this repo:
 
    ```bash
-   git clone https://github.com/your-username/your-new-repo.git
-   cd your-new-repo
+   git clone https://github.com/SebSV-GitHub/Node-package-template.git
    ```
 
-3. Install dependencies:
+2. **Install dependencies**:
 
    ```bash
+   cd Node-package-template
    npm install
    ```
 
-4. Run the development server:
+3. **Update package details**:
+
+   - Update the `name`, `version`, `description`, `author`, and other fields in `package.json` to match your new package details.
+
+4. **Build the example project**:
 
    ```bash
-   npm start
+   npm run build
    ```
 
-## 📜 Scripts
+5. **Install the integration test project**:
 
-- **`npm start`**: Starts the development server using `tsx` for fast TypeScript execution.
-- **`npm run build`**: Builds the project for production.
-- **`npm run lint`**: Runs the XO linter on all files.
-- **`npm run format`**: Formats code using Prettier.
-- **`npm run test`**: Runs tests using Jest.
-- **`npm run prepare`**: Sets up Husky hooks (automatically run during npm install).
-
-## 🛠️ Tools
-
-### TypeScript Path Aliases
-
-TypeScript path aliases help keep import statements cleaner, making it easier to manage large projects with multiple modules. This template includes an example path alias setup.
-
-1. **Configure Paths**: In `tsconfig.json`, define aliases within the `compilerOptions` field:
-
-   ```json
-   {
-     "compilerOptions": {
-       "baseUrl": ".",
-       "paths": {
-         "@components/*": ["src/components/*"],
-         "@utils/*": ["src/utils/*"]
-       }
-     }
-   }
+   ```bash
+   cd tests/integration
+   npm install
    ```
 
-2. **Using Aliases**: Once configured, use the paths in your import statements, like so:
+You are now ready to start coding!
 
-   ```typescript
-   import MyComponent from "@components/MyComponent";
-   import { myUtilityFunction } from "@utils/helpers";
+### Configuration
+
+- **TypeScript**:
+  - Primary settings in `tsconfig.json` (for development).
+  - `ts-jest` settings in `./tests/tsconfig.json` (to include `tests` folder)
+- **XO**:
+
+  - Configuration is typically managed in the `xo` configuration file `.xo-config.json`.
+  - Example:
+
+    ```json
+    {
+      "semicolon": false,
+      "space": 2,
+      "envs": ["node", "jest"],
+      "prettier": true
+    }
+    ```
+
+- **Jest**:
+  - Configuration in `jest.config.ts`.
+- **Husky**:
+  - The repository is pre-configured with Husky hooks:
+    - **Pre-commit**: Runs lint and tests before you can commit.
+  - This helps keep your main branch clean and ensures code quality at every commit.
+
+### Directory Structure
+
+```bash
+.
+├── .github/                    # GitHub Actions and workflows
+├── .husky/                     # Git Hooks
+├── src/                        # Your TypeScript source files
+│   ├── index.ts
+│   └── types                   # Custom types folder
+├── test/                       # Test framework
+│   ├── integration             # Example project that imports the package from the dist folder
+│   │   ├── index.ts
+│   │   ├── package.json        # This contains your module as a dependency pointing to dist
+│   │   └── tsconfig.json       # This acts as a standalone TypeScript project
+│   └── unit
+│       ├── index.test.ts
+│       └── tsconfig.json       # Additional configuration to include unit test only for ts-jest
+├── .editorconfig
+├── .gitignore
+├── .lintstagedrc
+├── .prettierrc                 # To use prettier default with xo, defaults need to be set in this file
+├── .xo-config.json
+├── gulpfile.ts
+├── jest.config.ts
+├── LICENSE
+├── package.json
+└── package-lock.json
+```
+
+---
+
+## Scripts
+
+All key scripts are defined in the `package.json` file.
+
+### Development
+
+There is no default dev server (since this is a package, not an app), but you can run a continuous test workflow (build and test) with:
+
+```bash
+npm run watch
+```
+
+### Build
+
+```bash
+npm run build
+```
+
+- Compiles your TypeScript files to JavaScript in ESM.
+- Outputs compiled files to the `dist/` directory.
+
+### Test
+
+```bash
+npm test
+```
+
+- Runs all tests in the `test/unit` directory using Jest (`ts-jest`).
+
+### Lint
+
+```bash
+npm run lint
+```
+
+- Runs XO checks according to the rules specified in `.xo-config.json`.
+- Automatically fixes fixable issues with:
+
+> **Note**: This template is designed to be publish using GitHub Actions.
+
+---
+
+---
+
+## Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repo and create a new branch:
+   ```bash
+   git checkout -b feature/your-feature
    ```
+2. Make changes and test thoroughly.
+3. Commit and push to your fork.
+4. Create a Pull Request describing your changes.
 
-This setup allows for absolute imports and improves code readability by avoiding complex relative paths.
+---
 
-### TypeScript with `tsx`
+## License
 
-This template uses the `tsx` runtime, providing a zero-config, lightning-fast TypeScript environment. The `tsx` package allows for easy TypeScript execution, similar to using `node` directly.
+This project is open-source and available under the [MIT License](LICENSE). Feel free to use and adapt it for your own projects!
 
-### Jest
+---
 
-- **Jest** is configured to run unit and integration tests. Place your tests in a `tests` folder or follow Jest's default structure by naming test files with `.test.ts` or `.spec.ts`.
-
-### XO & Prettier
-
-- **XO** enforces a strict code style to keep your code clean and maintainable.
-- **Prettier** works alongside XO to auto-format code, helping maintain a consistent style across the project.
-
-### Git Hooks (Husky + lint-staged)
-
-- **Husky** manages Git hooks to automate checks before commits.
-- **lint-staged** runs linting and formatting on staged files, ensuring only committed code is checked.
-
-### EditorConfig
-
-The included `.editorconfig` file ensures consistent editor behavior across different IDEs.
-
-## 📚 Usage
-
-To create a new repository from this template, select it in the **GitHub repository creation** options and hit **Create Repository**. All configurations are ready to use out of the box!
-
-## 🧪 Running Tests
-
-- Run all tests:
-
-  ```bash
-  npm test
-  ```
-
-- Run tests in watch mode:
-
-  ```bash
-  npm test -- --watch
-  ```
-
-## 📝 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+**Happy coding and thanks for using the Node Package Template!** If you have any questions or run into any issues, feel free to open an issue on this repository.

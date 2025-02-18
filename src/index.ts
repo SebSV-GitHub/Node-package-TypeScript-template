@@ -1,3 +1,1 @@
-import messageFromTheFuture from "#modules/surprise.js";
-
-await messageFromTheFuture("Seb");
+export { default } from "#modules/surprise.js";
