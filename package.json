@@ -13,7 +13,6 @@
 	},
 	"scripts": {
 		"test": "TSX_TSCONFIG_PATH=./tests/tsconfig.json c8 ava",
-		"prepack": "npm run build",
 		"prestart": "npm run build",
 		"start": "cd integration && npm start",
 		"build": "tsc",
