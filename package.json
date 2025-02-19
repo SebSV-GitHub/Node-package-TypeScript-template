@@ -21,7 +21,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+ssh://git@github.com/SebSV-GitHub/TypeScript-template.git"
+		"url": "git+ssh://git@github.com/SebSV-GitHub/Node-package-TypeScript-template.git"
 	},
 	"keywords": [
 		"TypeScript",
@@ -30,9 +30,9 @@
 	"author": "Sebastián Suárez Valencia <contact@sebsv.com> (https://www.sebsv.com)",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/SebSV-GitHub/TypeScript-template/issues"
+		"url": "https://github.com/SebSV-GitHub/Node-package-TypeScript-template/issues"
 	},
-	"homepage": "https://github.com/SebSV-GitHub/TypeScript-template#readme",
+	"homepage": "https://github.com/SebSV-GitHub/Node-package-TypeScript-template#readme",
 	"engines": {
 		"node": ">=22"
 	},
